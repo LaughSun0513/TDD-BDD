@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test:all": "jest --watchAll",
+    "test": "jest --watch",
     "get:jestConf": "jest --init",
     "get:testcoverage": "jest --coverage"
   },
