@@ -20,12 +20,12 @@ Snapshot
 Mock丰富
 
 ### Jest的使用
-### Jest的配置
+#### Jest的配置
 - 如何配合babel使用ES6
 - npx jest --init 揭开jest配置文件
 - jest --coverage 查看测试覆盖率
 
-### Jest的匹配器
+#### Jest的匹配器
 - toBe
 - toEqual
 - toBeNull
@@ -38,9 +38,9 @@ Mock丰富
 - toBeCloseTo
 - toMatch
 - toContain
-- throwError
+- toThrow
 
-### Jest下的命令行模式介绍
+#### Jest下的命令行模式介绍
 ```
 jest --watchAll 模式
 Watch Usage
@@ -79,3 +79,20 @@ Watch Usage
 ```
 - a模式: Press a to run all tests
   - 运行所有的测试用例(等价于 jest --watchAll)
+
+#### Jest异步请求
+- 回调函数 添加done
+- Promise接口
+  - return then/catch
+  - resolves.toMatchObject/rejects.toThrow
+  - async/await
+
+#### Jest钩子函数
+##### 钩子函数
+- beforeAll / AfterAll
+- beforeEach / AfterEach
+
+##### describe 关键字 -- 对测试用例进行分组
+- describe可以对测试用例进行分组
+- describe有自己的作用域，每个describe可以有自己的钩子函数
+- test.only 针对单个测试用例进行测试，排除其他测试用例的干扰
