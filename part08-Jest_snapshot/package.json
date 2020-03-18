@@ -1,5 +1,5 @@
 {
-  "name": "part06-Jest_lifecycle",
+  "name": "part08-Jest_snapshot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,7 +15,9 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
-    "axios": "^0.19.0",
     "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "prettier": "^1.8.2"
   }
 }

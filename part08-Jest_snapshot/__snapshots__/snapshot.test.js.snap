@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`测试defaulConf2函数 1`] = `
+Object {
+  "domain": "localhost",
+  "port": "8888",
+}
+`;
+
+exports[`测试defaulConf3函数 1`] = `
+Object {
+  "domain": "localhost",
+  "port": "8888",
+  "time": Any<Date>,
+}
+`;
+
+exports[`测试defaulConf函数 1`] = `
+Object {
+  "domain": "localhost",
+  "port": "8080",
+}
+`;

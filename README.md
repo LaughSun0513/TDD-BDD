@@ -96,3 +96,32 @@ Watch Usage
 - describe可以对测试用例进行分组
 - describe有自己的作用域，每个describe可以有自己的钩子函数
 - test.only 针对单个测试用例进行测试，排除其他测试用例的干扰
+
+#### Jest中的Mock功能
+-  jest.fn & jest.fn.mock
+    - mockReturnValue
+    - mockImplementation
+    - mockImplementationOnce
+    - mockImplementation
+    - mockReturnThis
+- jest.mock
+    - mockResolvedValueOnce
+
+#### Jest中的snapshot功能
+- jest自带的snapshot功能toMatchSnapshot(会生成`__snapshots__`文件夹)
+  - 每次更新配置可通过u来一次性更新快照
+  - 也可以通过i来交互性一个个更新
+  - 对于动态的配置，例如时间，可以对toMatchSnapshot传递参数，例如`expect.any(Date)`
+- 利用prettier 在代码中执行toMatchInlineSnapshot(执行测试，快照会生成在行内代码中)
+
+#### Jest中的Mock功能2
+- 可通过 jest.mock(`__mock__/fileName`)的方式来修改测试文件的mock数据
+  - 开启`jest.config.js`中的`automock: true`也会默认先去寻找`__mock__/fileName`下的测试函数
+- 如果在`__mock__/fileName`没有找到要测试的函数，可以通过`jest.requireActual`寻找源文件
+
+#### Jest中的测试时间的Mock功能
+- jest.useFakeTimers() 开启假时间
+  -  jest.runAllTimers() 快速过时间 达到模拟等待时间的过程
+  - jest.runOnlyPendingTimers() 只执行已经创建的时间函数
+  - jest.advanceTimersByTime(3000) 快进
+- toHaveBeenCalledTimes 执行次数

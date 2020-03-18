@@ -1,11 +1,11 @@
 {
-  "name": "part06-Jest_lifecycle",
+  "name": "part09-Jest_mock_2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test:all": "jest --watchAll",
-    "test": "jest --watch",
+    "test": "jest",
     "get:jestConf": "jest --init",
     "get:testcoverage": "jest --coverage"
   },
