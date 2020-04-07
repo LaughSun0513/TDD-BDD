@@ -1,0 +1,20 @@
+{
+  "name": "part11-Jest_mock_class",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:all": "jest --watchAll",
+    "test": "jest",
+    "get:jestConf": "jest --init",
+    "get:testcoverage": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "jest": "^24.9.0"
+  }
+}

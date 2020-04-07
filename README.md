@@ -1,5 +1,7 @@
 # TDD-BDD
-### 测试种类
+
+## 测试种类
+
 - 单元测试:独立的功能单元进行测试
 - 集成测试
 - 端到端测试
@@ -8,24 +10,28 @@
 - 压力测试
 
 ### Jest
+
 速度快
-API简单
+API 简单
 易配置
 隔离性好
 监控模式
-IDE整合
+IDE 整合
 Snapshot
 多项目并行
 覆盖率
-Mock丰富
+Mock 丰富
 
-### Jest的使用
-#### Jest的配置
-- 如何配合babel使用ES6
-- npx jest --init 揭开jest配置文件
+### Jest 的使用
+
+#### Jest 的配置
+
+- 如何配合 babel 使用 ES6
+- npx jest --init 揭开 jest 配置文件
 - jest --coverage 查看测试覆盖率
 
-#### Jest的匹配器
+#### Jest 的匹配器
+
 - toBe
 - toEqual
 - toBeNull
@@ -40,8 +46,9 @@ Mock丰富
 - toContain
 - toThrow
 
-#### Jest下的命令行模式介绍
-```
+#### Jest 下的命令行模式介绍
+
+```txt
 jest --watchAll 模式
 Watch Usage
  › Press f to run only failed tests.
@@ -51,23 +58,27 @@ Watch Usage
  › Press q to quit watch mode.
  › Press Enter to trigger a test run.
 ```
-- f模式: Press f to run only failed tests
+
+- f 模式: Press f to run only failed tests
+
   - 只针对错误的用例再跑一遍，而不是所有的
 
-- o模式: Press o to only run tests related to changed files
-  - 前提条件: 必须配合git
-    - 先git init 初始化仓库
-    - 再git add . 将所有文件加入
-    - 再jest --watchAll 进入o模式 只会对当前修改的文件生效
-  - 存在多个test文件时，再跑一遍当前修改文件里的用例(jest --watch默认为o模式)
+- o 模式: Press o to only run tests related to changed files
 
-- p模式: Press p to filter by a filename regex pattern
-  - 可以根据正则匹配符合的文件 pattern › match2(只找命中match2的测试文件，如match2.test.js)
+  - 前提条件: 必须配合 git
+    - 先 git init 初始化仓库
+    - 再 git add . 将所有文件加入
+    - 再 jest --watchAll 进入 o 模式 只会对当前修改的文件生效
+  - 存在多个 test 文件时，再跑一遍当前修改文件里的用例(jest --watch 默认为 o 模式)
 
-- t模式: Press t to filter by a test name regex pattern.
-  - 可以根据正则匹配符合的测试用例 pattern › toBe (只找所有测试文件中命中toBe的测试用例)
+- p 模式: Press p to filter by a filename regex pattern
 
-```
+  - 可以根据正则匹配符合的文件 pattern › match2(只找命中 match2 的测试文件，如 match2.test.js)
+
+- t 模式: Press t to filter by a test name regex pattern.
+  - 可以根据正则匹配符合的测试用例 pattern › toBe (只找所有测试文件中命中 toBe 的测试用例)
+
+```txt
 jest --watch 模式
 Watch Usage
  › Press a to run all tests.
@@ -77,51 +88,119 @@ Watch Usage
  › Press q to quit watch mode.
  › Press Enter to trigger a test run.
 ```
-- a模式: Press a to run all tests
+
+- a 模式: Press a to run all tests
   - 运行所有的测试用例(等价于 jest --watchAll)
 
-#### Jest异步请求
-- 回调函数 添加done
-- Promise接口
+#### Jest 异步请求
+
+- 回调函数 添加 done
+- Promise 接口
   - return then/catch
   - resolves.toMatchObject/rejects.toThrow
   - async/await
 
-#### Jest钩子函数
+#### Jest 钩子函数
+
 ##### 钩子函数
+
 - beforeAll / AfterAll
 - beforeEach / AfterEach
 
 ##### describe 关键字 -- 对测试用例进行分组
-- describe可以对测试用例进行分组
-- describe有自己的作用域，每个describe可以有自己的钩子函数
+
+- describe 可以对测试用例进行分组
+- describe 有自己的作用域，每个 describe 可以有自己的钩子函数
 - test.only 针对单个测试用例进行测试，排除其他测试用例的干扰
 
-#### Jest中的Mock功能
--  jest.fn & jest.fn.mock
-    - mockReturnValue
-    - mockImplementation
-    - mockImplementationOnce
-    - mockImplementation
-    - mockReturnThis
+#### Jest 中的 Mock 功能
+
+- jest.fn & jest.fn.mock
+  - mockReturnValue
+  - mockImplementation
+  - mockImplementationOnce
+  - mockImplementation
+  - mockReturnThis
 - jest.mock
-    - mockResolvedValueOnce
+  - mockResolvedValueOnce
 
-#### Jest中的snapshot功能
-- jest自带的snapshot功能toMatchSnapshot(会生成`__snapshots__`文件夹)
-  - 每次更新配置可通过u来一次性更新快照
-  - 也可以通过i来交互性一个个更新
-  - 对于动态的配置，例如时间，可以对toMatchSnapshot传递参数，例如`expect.any(Date)`
-- 利用prettier 在代码中执行toMatchInlineSnapshot(执行测试，快照会生成在行内代码中)
+#### Jest 中的 snapshot 功能
 
-#### Jest中的Mock功能2
-- 可通过 jest.mock(`__mock__/fileName`)的方式来修改测试文件的mock数据
+- jest 自带的 snapshot 功能 toMatchSnapshot(会生成`__snapshots__`文件夹)
+  - 每次更新配置可通过 u 来一次性更新快照
+  - 也可以通过 i 来交互性一个个更新
+  - 对于动态的配置，例如时间，可以对 toMatchSnapshot 传递参数，例如`expect.any(Date)`
+- 利用 prettier 在代码中执行 toMatchInlineSnapshot(执行测试，快照会生成在行内代码中)
+
+#### Jest 中的 Mock 功能 2
+
+- 可通过 jest.mock(`__mock__/fileName`)的方式来修改测试文件的 mock 数据
   - 开启`jest.config.js`中的`automock: true`也会默认先去寻找`__mock__/fileName`下的测试函数
 - 如果在`__mock__/fileName`没有找到要测试的函数，可以通过`jest.requireActual`寻找源文件
 
-#### Jest中的测试时间的Mock功能
+#### Jest 中的测试时间的 Mock 功能
+
 - jest.useFakeTimers() 开启假时间
-  -  jest.runAllTimers() 快速过时间 达到模拟等待时间的过程
+  - jest.runAllTimers() 快速过时间 达到模拟等待时间的过程
   - jest.runOnlyPendingTimers() 只执行已经创建的时间函数
   - jest.advanceTimersByTime(3000) 快进
 - toHaveBeenCalledTimes 执行次数
+
+#### Jest 中的 Mock 类的实现
+
+- 对单个类的引用函数的测试是单元测试，顺便测一下这个类内部的方法叫做集成测试
+- jest.mock()引用类，将类里面的方法转换成了 jest.fn()
+- 也可以在`__mocks__`里面去模拟 jest.mock 的实现
+- 在 jest.mock(path,callback）中可以通过 callback 里的实现去模拟`__mocks__`里的功能，同时进行扩展
+
+```js
+jest.mock("./utils", () => {
+  const Utils = jest.fn(() => {
+    console.log("3333");
+  });
+  Utils.prototype.a = jest.fn(() => {
+    console.log("222222");
+  });
+  Utils.prototype.b = jest.fn(() => {
+    console.log("11111");
+  });
+  return Utils;
+});
+```
+
+#### Jest 中的 DOM 测试
+
+- jest 运行在 node 环境，因为自己实现里一套 DOM API（jsDOM），所以可以直接使用 DOM 操作
+
+### TDD--Test Driven Development
+
+#### 开发流程（Red-Green Development）
+
+- 编写测试用例
+- 运行测试，测试用例无法通过测试
+- 编写代码，使测试用例通过测试
+- 优化代码，完成开发
+- 重复上述步骤
+
+#### 优势
+
+- 长期减少回归 bug
+- 代码质量更好（组织，可维护性）
+- 测试覆盖率高
+- 错误测试代码不容易出现
+
+####  jest-vue
+
+- npm install @vue/cli -g
+```
+Vue CLI v4.3.0
+? Please pick a preset: Manually select features 手动配置
+? Check the features needed for your project: Babel, CSS Pre-processors, Linter, Unit
+? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default): Stylus
+? Pick a linter / formatter config: Standard
+? Pick additional lint features: Lint on save, Lint and fix on commit
+? Pick a unit testing solution: Jest
+? Where do you prefer placing config for Babel, ESLint, etc.? In dedicated config files 单独的文件
+? Save this as a preset for future projects? No
+? Pick the package manager to use when installing dependencies: NPM
+```
