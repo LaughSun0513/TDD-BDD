@@ -191,7 +191,7 @@ jest.mock("./utils", () => {
 
 ####  jest-vue
 
-- npm install @vue/cli -g
+- sudo npm install @vue/cli -g
 ```
 Vue CLI v4.3.0
 ? Please pick a preset: Manually select features 手动配置
@@ -203,4 +203,18 @@ Vue CLI v4.3.0
 ? Where do you prefer placing config for Babel, ESLint, etc.? In dedicated config files 单独的文件
 ? Save this as a preset for future projects? No
 ? Pick the package manager to use when installing dependencies: NPM
+
+
 ```
+- jest.config.js默认配置@vue/cli-plugin-unit-jest
+  - testMatch配置测试目录,修改根目录为`__test__`下的`unit`文件夹下
+
+##### @vue/test-utils的好处和使用
+- 可以对DOM的变化进行测试
+- 可以对DOM的数据进行访问测试(原生DOM只有操作DOM的能力，有局限性) -- 解决: @vue/test-util工具
+- API https://vue-test-utils.vuejs.org/zh/api/#shallowmount
+    - 组件的渲染方式 生成wrapper容器
+      - shallowMount | mount ....
+    - wrapper的APIs
+      - find | findAll | props | setProps...
+- 复习知识点: toMatchSnapshot 对组件进行渲染
