@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`HelloWorld.vue 复习:利用toMatchSnapshot快照进行组件的渲染 1`] = `
-<div class="hello">
-  <h1 class="myTitle">Yux-snapshot</h1>
-</div>
-`;

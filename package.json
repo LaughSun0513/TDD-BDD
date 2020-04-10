@@ -1,0 +1,30 @@
+{
+  "name": "TDD-BDD",
+  "version": "1.0.0",
+  "description": "Jest学习记录",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "commitizen": "^4.0.4",
+    "cz-conventional-changelog": "^3.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "scripts": {
+    "commit": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaughSun0513/TDD-BDD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LaughSun0513/TDD-BDD/issues"
+  },
+  "homepage": "https://github.com/LaughSun0513/TDD-BDD#readme"
+}

@@ -1,3 +1,12 @@
 {
-    "editor.tabCompletion": "on"
+    "editor.tabCompletion": "on",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }

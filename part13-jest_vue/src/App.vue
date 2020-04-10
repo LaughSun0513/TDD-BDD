@@ -1,20 +1,23 @@
 <template>
-  <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div id="app">
+		<TodoList />
+	</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoList from './containers/TodoList/TodoList';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+	name: 'App',
+	components: {
+		TodoList
+	}
+};
 </script>
 
 <style lang="stylus">
-
+* {
+	margin: 0;
+	padding: 0;
+}
 </style>
