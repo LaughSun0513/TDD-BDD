@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --watch",
-    "lint": "eslint --fix --ext .js,.vue,.jsx && npm run lint --fix",
+    "lint": "vue-cli-service lint --fix",
     "precommit": "lint-staged"
   },
   "dependencies": {
@@ -41,9 +41,7 @@
   "lint-staged": {
     "src/**/*.{js,jsx,vue}": [
       "prettier --write",
-      "vue-cli-service lint",
-      "eslint --fix",
-      "npm run lint--fix",
+      "vue-cli-service lint --fix",
       "git add"
     ]
   }

@@ -271,3 +271,42 @@ describe("HelloWorld.vue", () => {
 	});
 });
 ```
+##### TodoList组件(主组件)
+1. 初始化TodoList组件,由Header组件 + UndoList组件 组成
+2. Header组件负责输入，UndoList组件负责展示和编辑
+3. 初始化放任务的数组undoList，传递给UndoList组件
+  - 初始化时，undoList为空
+4. 监听header组件的add事件，触发自身的addUndoItem操作，新增一项
+  - 通过`header.vm.$emit('add', newItem);`(header组件联动TodoList组件，属于集成测试)
+  - 单元测试 可以模拟设置值`wrapper.setData()`
+5. 通过监听UndoList组件的delete事件触发自身handleDeleteItem操作，减少一项
+
+##### Header 组件的 TDD 驱动开发（子组件，负责输入）
+1. 初始化 Header 组件,包含 input 框
+
+- 通过 `data-test` 给要初始化的 DOM 节点打标记，`wrapper.findAll` 来寻找
+- 通过`exists()`方法证明是否存在
+
+2. input 框初始值为空
+- 通过`wrapper.vm.inputValue`获取input值
+
+3. input 框值发生变化,v-model 数据跟着变
+- 通过`setValue`设置值
+
+4. input 框输入回车，无内容时没反应
+- 通过`trigger`触发动作
+- 通过`wrapper.emitted().fn`触发`fn`自定义方法
+
+5. input 框输入回车，有内容时,向外触发事件，清空 inputValue
+6. Header 样式保存,变化后提示
+- 通过`toMatchSnapshot()`保存设置好的样式，防止样式变化
+
+##### UndoList 组件（子组件，负责展示和编辑）
+1. 初始化UndoList,参数为[],显示总数count为0,列表无内容
+  - 设置初始值`propsData`
+2. UndoList,参数为[1,2,3],显示总数count为3,列表长度为3,并且有删除按钮
+3. 删除按钮点击时，删除当前点击的项
+  - `wrapper.emitted().delete` 触发delete事件
+
+
+
