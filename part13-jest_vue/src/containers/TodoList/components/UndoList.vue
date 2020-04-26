@@ -5,8 +5,23 @@
 			<span data-test="count" class="count">{{ list.length }}</span>
 		</div>
 		<ul class="list">
-			<li v-for="(newItem, index) in list" :key="index" data-test="item" class="item">
-				{{ newItem.value }}
+			<li
+				v-for="(newItem, index) in list"
+				:key="index"
+				data-test="item"
+				class="item"
+				@click="changeStatus(index)"
+			>
+				<input
+					class="user-input"
+					data-test="input"
+					v-if="newItem.status === 'input'"
+					:value="newItem.value"
+					@blur="handleInputBlur"
+					@change="handleInputChange($event, index)"
+				/>
+				<span v-else>{{ newItem.value }}</span>
+
 				<span
 					data-test="deleteBtn"
 					class="deleteBtn"
@@ -29,6 +44,18 @@ export default {
 	methods: {
 		handleDelete(index) {
 			this.$emit('delete', index);
+		},
+		changeStatus(index) {
+			this.$emit('status', index);
+		},
+		handleInputBlur() {
+			this.$emit('reset');
+		},
+		handleInputChange(e, index) {
+			this.$emit('change', {
+				value: e.target.value,
+				index
+			});
 		}
 	}
 };
@@ -85,5 +112,11 @@ export default {
 	font-size 12px;
 	text-indent 0;
 	cursor pointer;
+}
+.user-input {
+	width 460px;
+	height 22px;
+	text-indent 10px;
+	outline none;
 }
 </style>

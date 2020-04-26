@@ -280,6 +280,11 @@ describe("HelloWorld.vue", () => {
     - 通过`header.vm.$emit('add', newItem);`(header组件联动TodoList组件，属于集成测试)
     - 单元测试 可以模拟设置值`wrapper.setData()`
 5. 通过监听UndoList组件的delete事件触发自身handleDeleteItem操作，减少一项
+6. 修改为编辑态，通过监听 UndoList 组件的 status 事件触发自身 changeStatus 操作，修改当前下标项
+   status 'div' ---> status 'input'
+7. 修改为显示态，通过监听到 UndoList 组件的 reset 事件后,修改当前 item 的状态为 div  
+   status 'input' ---> status 'div'
+8. 保存新内容，通过监听到 UndoList 组件的 change 事件，changeItemValue 事件修改当前 item 的内容
 
 ##### Header 组件的 TDD 驱动开发（子组件，负责输入）
 1. 初始化 Header 组件,包含 input 框
@@ -320,5 +325,9 @@ describe("HelloWorld.vue", () => {
         value: 3
     }
     ```
+-   4.1 修改为编辑态，列表项被点击向外触发 status 事件，修改 status 'div' ---> status 'input'
+-   4.2 修改为编辑态，列表项被点击变为 input 框,其余不变,并且 input 框里显示的值是当前的值
+-   4.3 修改为显示态, input blur 失焦时,恢复状态 status 'input' ---> status 'div'
+-   4.4 保存新内容, input blur 失焦时,触发 change 事件通知父组件 ToDoList 去保存新内容
 
 

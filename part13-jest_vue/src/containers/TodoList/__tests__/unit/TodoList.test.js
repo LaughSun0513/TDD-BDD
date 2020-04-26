@@ -119,4 +119,106 @@ describe('TodoList 组件测试', () => {
     }]
     expect(undoList).toEqual(afterDeleteData);
   });
+
+  it('changeStatus被调用时,修改当前item的status', () => {
+    const wrapper = shallowMount(TodoList);
+    const initData = [{
+      status: 'div',
+      value: 1
+    }, {
+      status: 'div',
+      value: 2
+    }, {
+      status: 'div',
+      value: 3
+    }]
+    wrapper.setData({
+      undoList: initData
+    });
+
+    wrapper.vm.handleChangeStatus(2);
+    const undoList = wrapper.vm.undoList;
+
+    const afterChangeData = [{
+      status: 'div',
+      value: 1
+    }, {
+      status: 'div',
+      value: 2
+    }, {
+      status: 'input',
+      value: 3
+    }]
+    expect(undoList).toEqual(afterChangeData);
+  });
+
+  it('监听到UndoList组件的reset方法后,修改当前item的状态为div', () => {
+    const wrapper = shallowMount(TodoList);
+    const initData = [{
+      status: 'div',
+      value: 1
+    }, {
+      status: 'input',
+      value: 2
+    }, {
+      status: 'div',
+      value: 3
+    }]
+    wrapper.setData({
+      undoList: initData
+    });
+
+    wrapper.vm.resetStatus();
+    const undoList = wrapper.vm.undoList;
+
+    const afterChangeData = [{
+      status: 'div',
+      value: 1
+    }, {
+      status: 'div',
+      value: 2
+    }, {
+      status: 'div',
+      value: 3
+    }]
+
+    expect(undoList).toEqual(afterChangeData);
+  });
+
+  it('监听到UndoList组件的change事件，changeItemValue事件修改当前item的内容', () => {
+    const wrapper = shallowMount(TodoList);
+    const initData = [{
+      status: 'div',
+      value: 1
+    }, {
+      status: 'input',
+      value: 2
+    }, {
+      status: 'div',
+      value: 3
+    }]
+    wrapper.setData({
+      undoList: initData
+    });
+
+
+    const undoList = wrapper.vm.undoList;
+    wrapper.vm.changeItemValue({
+      value: '444',
+      index: 1
+    });
+
+    const afterChangeData = [{
+      status: 'div',
+      value: 1
+    }, {
+      status: 'input',
+      value: '444'
+    }, {
+      status: 'div',
+      value: 3
+    }]
+
+    expect(undoList).toEqual(afterChangeData);
+  });
 });
