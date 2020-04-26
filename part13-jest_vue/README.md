@@ -125,12 +125,12 @@ describe('HelloWorld.vue', () => {
 2. Header 组件负责输入，UndoList 组件负责展示和编辑
 3. 初始化放任务的数组 undoList，传递给 UndoList 组件
 
--   初始化时，undoList 为空
+    - 初始化时，undoList 为空
 
 4. 监听 header 组件的 add 事件，触发自身的 addUndoItem 操作，新增一项
 
--   通过`header.vm.$emit('add', newItem);`(header 组件联动 TodoList 组件，属于集成测试)
--   单元测试 可以模拟设置值`wrapper.setData()`
+    - 通过`header.vm.$emit('add', newItem);`(header 组件联动 TodoList 组件，属于集成测试)
+    - 单元测试 可以模拟设置值`wrapper.setData()`
 
 5. 通过监听 UndoList 组件的 delete 事件触发自身 handleDeleteItem 操作，减少一项
 6. 修改为编辑态，通过监听 UndoList 组件的 status 事件触发自身 changeStatus 操作，修改当前下标项
@@ -143,26 +143,26 @@ describe('HelloWorld.vue', () => {
 
 1. 初始化 Header 组件,包含 input 框
 
--   通过 `data-test` 给要初始化的 DOM 节点打标记，`wrapper.findAll` 来寻找
--   通过`exists()`方法证明是否存在
+    - 通过 `data-test` 给要初始化的 DOM 节点打标记，`wrapper.findAll` 来寻找
+    - 通过`exists()`方法证明是否存在
 
 2. input 框初始值为空
 
--   通过`wrapper.vm.inputValue`获取 input 值
+    - 通过`wrapper.vm.inputValue`获取 input 值
 
 3. input 框值发生变化,v-model 数据跟着变
 
--   通过`setValue`设置值
+    - 通过`setValue`设置值
 
 4. input 框输入回车，无内容时没反应
 
--   通过`trigger`触发动作
--   通过`wrapper.emitted().fn`触发`fn`自定义方法
+    - 通过`trigger`触发动作
+    - 通过`wrapper.emitted().fn`触发`fn`自定义方法
 
 5. input 框输入回车，有内容时,向外触发事件，清空 inputValue
 6. Header 样式保存,变化后提示
 
--   通过`toMatchSnapshot()`保存设置好的样式，防止样式变化
+    - 通过`toMatchSnapshot()`保存设置好的样式，防止样式变化
 
 ### UndoList 组件（子组件，负责展示和编辑）
 
@@ -178,19 +178,62 @@ describe('HelloWorld.vue', () => {
 4. 编辑功能 - 将扁平的数据结构扩展
 
     ```js
-    	{
-     status: 'div',
-     value: 3
+    {
+    	status: 'div',
+    	value: 3
     }
 
     --->
     {
-     status: 'input',
-     value: 3
+    	status: 'input',
+    	value: 3
     }
     ```
 
--   4.1 修改为编辑态，列表项被点击向外触发 status 事件，修改 status 'div' ---> status 'input'
--   4.2 修改为编辑态，列表项被点击变为 input 框,其余不变,并且 input 框里显示的值是当前的值
--   4.3 修改为显示态, input blur 失焦时,恢复状态 status 'input' ---> status 'div'
--   4.4 保存新内容, input blur 失焦时,触发 change 事件通知父组件 ToDoList 去保存新内容
+    - 4.1 修改为编辑态，列表项被点击向外触发 status 事件，修改 status 'div' ---> status 'input'
+    - 4.2 修改为编辑态，列表项被点击变为 input 框,其余不变,并且 input 框里显示的值是当前的值
+    - 4.3 修改为显示态, input blur 失焦时,恢复状态 status 'input' ---> status 'div'
+    - 4.4 保存新内容, input blur 失焦时,触发 change 事件通知父组件 ToDoList 去保存新内容
+
+### 测试覆盖率
+
+1. 在`jest.config.js`配置属性
+
+```js
+collectCoverageFrom: [
+	'src/**/*.{js,vue}',
+	'!**/node_modules/**', // 排除node_modules
+	'!**/vendor/**', // 排除vendor
+	'!src/**/App.vue', // 排除App.vue
+	'!src/**/main.js' // 排除main.js
+];
+```
+
+2. 配置`package.json`
+
+```js
+ "coverage": "vue-cli-service test:unit --coverage"
+```
+
+3. 执行`npm run coverage`
+4. 结果
+
+```
+---------------------|----------|----------|----------|----------|-------------------|
+File                 |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+---------------------|----------|----------|----------|----------|-------------------|
+All files            |      100 |      100 |      100 |      100 |                   |
+ TodoList            |      100 |      100 |      100 |      100 |                   |
+  TodoList.vue       |      100 |      100 |      100 |      100 |                   |
+ TodoList/components |      100 |      100 |      100 |      100 |                   |
+  Header.vue         |      100 |      100 |      100 |      100 |                   |
+  UndoList.vue       |      100 |      100 |      100 |      100 |                   |
+ TodoList/utils      |      100 |      100 |      100 |      100 |                   |
+  index.js           |      100 |      100 |      100 |      100 |                   |
+---------------------|----------|----------|----------|----------|-------------------|
+```
+
+## jest-vue 总结
+
+-   TDD 代码质量高
+-   单元测试 测试覆盖率高 代码量大 业务耦合度高 过于独立
