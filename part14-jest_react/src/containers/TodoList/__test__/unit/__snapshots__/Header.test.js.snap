@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header 组件测试 Header样式保存,变化后提示 1`] = `
+<div
+  class="Header"
+  data-test="Header"
+>
+  <input
+    data-test="input"
+    onChange={[Function]}
+    onKeyUp={[Function]}
+    value=""
+  />
+</div>
+`;

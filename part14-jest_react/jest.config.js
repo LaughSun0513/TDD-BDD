@@ -8,7 +8,7 @@ module.exports = {
     ],
     testMatch: [
         "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-        "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
+        "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     testEnvironment: "jest-environment-jsdom-fourteen", // 可以指定测试环境
     transform: {

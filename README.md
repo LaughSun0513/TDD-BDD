@@ -426,3 +426,18 @@ All files            |      100 |      100 |      100 |      100 |              
             expect(container).toHaveProp("name", "Yux");
         });
     ```
+### Header组件的TDD
+- 初始化Header,包含input框
+    - `shallow()`方法挂载组件
+    - `wrapper.find()`寻找组件
+- input框初始值为空
+    - `element.prop()`寻找input属性上的值
+- input框值发生变化,用户输入时,数据跟着变
+     - `element.simulate()`触发事件
+     - `wrapper.state()` 获取Header组件上的state值
+- input框输入回车，无内容时没反应
+    - `toHaveBeenCalled()`
+- input框输入回车，有内容时,向外触发事件，清空inputValue
+    - `toHaveBeenLastCalledWith()`
+- Header样式保存,变化后提示
+    - `toMatchSnapshot()`
