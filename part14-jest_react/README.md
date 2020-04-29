@@ -131,3 +131,25 @@ it('引用Enzyme 测试 APP组件 是否存在', () => {
     - 获取自身实例上的方法`wrapper.instance().funcName`
 - 监听到Header组件的add操作时,新增一项
     - 通过获取自身add方法，调用-->模拟add事件
+- 存在UndoList组件时,将初始值undoList数组传递下去变为UndoList组件内的list,并传递deleteItem方法
+    - `UndoList.prop('list');`获取数组list
+    - `UndoList.prop('deleteItem')` 获取deleteItem方法
+- deleteItem方法被调用 undoList数据项被删除
+    - `wrapper.instance().deleteItem(1);` 模拟调用deleteItem方法
+    
+### UndoList 组件的TDD
+- 初始化UndoList,存放数组list为[],显示总数count为0,列表无内容
+    - `const wrapper = shallow(<UndoList list={[]}/>);`
+    - 获取元素上的内容`element.text()`
+- UndoList,参数为[1,2,3],显示总数count为3,列表长度为3,并且有删除按钮
+- 删除按钮点击时，删除当前点击的项
+    - 利用`jest.fn` mock 删除时调用的事件 
+        ```js
+        const wrapper = shallow(<UndoList deleteItem={fn}/>);
+        ```
+    - 模拟点击项
+        ```js
+            const index = 1;
+            deleteBtns.at(index).simulate('click');
+            expect(fn).toHaveBeenLastCalledWith(index);
+        ```
