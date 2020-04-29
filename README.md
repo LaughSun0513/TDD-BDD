@@ -426,6 +426,22 @@ All files            |      100 |      100 |      100 |      100 |              
             expect(container).toHaveProp("name", "Yux");
         });
     ```
+
+- 通过预加载Enzyme，不需要在每个测试用例里初始化Enzyme
+    ```js
+        // setupTests.js
+        import Enzyme from 'enzyme';
+        import Adapter from 'enzyme-adapter-react-16';
+
+        Enzyme.configure({
+            adapter: new Adapter()
+        });
+
+        //jest.config.js
+        setupFilesAfterEnv: ["<rootDir>/src/setupTests.js"]
+    ```
+
+
 ### Header组件的TDD
 - 初始化Header,包含input框
     - `shallow()`方法挂载组件
@@ -441,3 +457,10 @@ All files            |      100 |      100 |      100 |      100 |              
     - `toHaveBeenLastCalledWith()`
 - Header样式保存,变化后提示
     - `toMatchSnapshot()`
+
+### TodoList 组件的TDD(父组件)
+- 初始化时，存放空数组undoList
+- 监听到Header组件的add操作时,传递addUndoItem方法给Header组件
+    - 获取自身实例上的方法`wrapper.instance().funcName`
+- 监听到Header组件的add操作时,新增一项
+    - 通过获取自身add方法，调用-->模拟add事件

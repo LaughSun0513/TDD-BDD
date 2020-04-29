@@ -1,24 +1,19 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import Header from '../../components/Header';
-
-Enzyme.configure({
-  adapter: new Adapter()
-});
-
+import {findWrapper} from '../../../../utils/testUtils';
 
 describe('Header 组件测试', () => { 
   it('初始化Header,包含input框', () => {
     const wrapper = shallow(<Header/>);
-    const inputEle = wrapper.find('[data-test="input"]');
+    const inputEle = findWrapper(wrapper, 'input');
 
     expect(inputEle).toExist();
   });
 
   it('input框初始值为空', () => {
     const wrapper = shallow(<Header />);
-    const inputEle = wrapper.find('[data-test="input"]');
+    const inputEle = findWrapper(wrapper, 'input');
     const inputValue = inputEle.prop('value');
 
     expect(inputValue).toBe('');
@@ -26,7 +21,7 @@ describe('Header 组件测试', () => {
 
   it('input框值发生变化,用户输入时,数据跟着变', () => {
     const wrapper = shallow(<Header />);
-    const inputEle = wrapper.find('[data-test="input"]');
+    const inputEle = findWrapper(wrapper, 'input');
     const userInputMsg = 'inputMsg';
 
     inputEle.simulate('change', {
@@ -46,7 +41,7 @@ describe('Header 组件测试', () => {
   it('input框输入回车，无内容时没反应', () => {
     const keyUpEvents = jest.fn();
     const wrapper = shallow(<Header addUndoItem={keyUpEvents}/>);
-    const inputEle = wrapper.find('[data-test="input"]');
+    const inputEle = findWrapper(wrapper, 'input');
     wrapper.setState({
       value: ''
     });
@@ -61,7 +56,7 @@ describe('Header 组件测试', () => {
   it('input框输入回车，有内容时,向外触发事件，清空inputValue', () => {
     const keyUpEvents = jest.fn();
     const wrapper = shallow(<Header addUndoItem={keyUpEvents}/>);
-    const inputEle = wrapper.find('[data-test="input"]');
+    const inputEle = findWrapper(wrapper, 'input');
     const userInputMsg = 'Yux';
 
     wrapper.setState({
@@ -73,7 +68,10 @@ describe('Header 组件测试', () => {
     });
 
     expect(keyUpEvents).toHaveBeenCalled();
-    expect(keyUpEvents).toHaveBeenLastCalledWith(userInputMsg)
+    expect(keyUpEvents).toHaveBeenLastCalledWith(userInputMsg);
+    
+    const newInputEle = findWrapper(wrapper, 'input');
+    expect(newInputEle.prop('value')).toBe('');
   });
 
   it('Header样式保存,变化后提示', () => {
