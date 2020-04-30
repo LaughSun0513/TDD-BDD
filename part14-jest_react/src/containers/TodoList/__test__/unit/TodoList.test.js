@@ -21,10 +21,18 @@ describe('TodoList 组件测试', () => {
     it('监听到Header组件的add操作时,新增一项', () => {
         const wrapper = shallow(<TodoList />);
         wrapper.instance().addUndoItem('new item');
-        expect(wrapper.state('undoList').length).toBe(1);
 
-        wrapper.instance().addUndoItem('new item2');
-        expect(wrapper.state('undoList').length).toBe(2);
+        expect(wrapper.state('undoList').length).toBe(1);
+        expect(wrapper.state('undoList')).toEqual([{
+                status: 'div',
+                value: 'new item'
+        }]);
+
+        // wrapper.instance().addUndoItem('new item');
+        // expect(wrapper.state('undoList').length).toBe(1);
+
+        // wrapper.instance().addUndoItem('new item2');
+        // expect(wrapper.state('undoList').length).toBe(2);
         
         /* 集成测试
             const Header = wrapper.find('Header');
@@ -39,10 +47,10 @@ describe('TodoList 组件测试', () => {
         */
     });
 
-    it('存在UndoList组件时,将初始值undoList数组传递下去变为UndoList组件内的list,并传递deleteItem方法', () => {
+    it('存在UndoList组件时,传递list,deleteItem,', () => {
         const wrapper = shallow( <TodoList /> );
-        
         const UndoList = wrapper.find('UndoList');
+
         const list = UndoList.prop('list');
         const deleteItem = UndoList.prop('deleteItem');
         
@@ -58,5 +66,71 @@ describe('TodoList 组件测试', () => {
         })
         wrapper.instance().deleteItem(1);
         expect(wrapper.state('undoList')).toEqual([1,3]);
+    });
+
+    it('列表项被点击触发changeStatus事件,div ---> input,其余不变,并且input框里显示的值是当前的值', () => {
+        const listData = [
+            { status: 'div', value: 'Y' },
+            { status: 'div', value: 'U' },
+            { status: 'div', value: 'X' }
+        ]
+        const wrapper = shallow(<TodoList />);
+        wrapper.setState({
+            undoList: listData
+        });
+        wrapper.instance().changeStatus(1); // 触发修改状态
+        
+        const UndoList = wrapper.find('UndoList');
+        const changeStatusEvents = UndoList.prop('changeStatus');
+
+        expect(changeStatusEvents).toBeTruthy();
+        expect(wrapper.state('undoList')[1]).toEqual({
+            status: 'input',
+            value: 'U'
+        })
+    });
+
+    it('input blur失焦时,UndoList触发onInputBlur,恢复状态为div input ---> div', () => {
+        const listData = [
+            { status: 'input', value: 'Y' },
+            { status: 'div', value: 'U' },
+            { status: 'div', value: 'X' }
+        ]
+        const wrapper = shallow(<TodoList />);
+        wrapper.setState({
+            undoList: listData
+        });
+        wrapper.instance().onInputBlur(0); // 触发修改状态
+        
+        const UndoList = wrapper.find('UndoList');
+        const onInputBlurEvents = UndoList.prop('onInputBlur');
+
+        expect(onInputBlurEvents).toBeTruthy();
+        expect(wrapper.state('undoList')[0]).toEqual({
+            status: 'div',
+            value: 'Y'
+        });
+    });
+    
+    it('input blur失焦时,触发onInputBlurToSave事件，保存新内容', () => {
+        const wrapper = shallow(<TodoList />);
+        const listData = [
+            { status: 'input', value: 'Y' },
+            { status: 'div', value: 'U' },
+            { status: 'div', value: 'X' }
+        ]
+        
+        wrapper.setState({undoList: listData});
+        const value = 'new item'
+        wrapper.instance().onInputBlurToSave(0, value); // 触发修改状态
+        
+        const UndoList = wrapper.find('UndoList');
+        const onInputBlurToSaveEvents = UndoList.prop('onInputBlurToSave');
+
+        expect(onInputBlurToSaveEvents).toBeTruthy();
+        expect(wrapper.state('undoList')[0]).toEqual({
+            ...listData[0],
+            value
+        });
     });
 })

@@ -469,7 +469,10 @@ All files            |      100 |      100 |      100 |      100 |              
     - `UndoList.prop('deleteItem')` 获取deleteItem方法
 - deleteItem方法被调用 undoList数据项被删除
     - `wrapper.instance().deleteItem(1);` 模拟调用deleteItem方法
-    
+- 列表项被点击触发changeStatus事件,div ---> input,其余不变,并且input框里显示的值是当前的值
+- input blur失焦时,UndoList触发onInputBlur,恢复状态为div input ---> div
+- input blur失焦时,触发onInputBlurToSave事件，保存新内容
+  
 ### UndoList 组件的TDD
 - 初始化UndoList,存放数组list为[],显示总数count为0,列表无内容
     - `const wrapper = shallow(<UndoList list={[]}/>);`
@@ -486,3 +489,7 @@ All files            |      100 |      100 |      100 |      100 |              
             deleteBtns.at(index).simulate('click');
             expect(fn).toHaveBeenLastCalledWith(index);
         ```
+- 列表项被点击向外触发changeStatus事件
+- 当状态是input,展示input,并且input框里显示的值是当前的值
+- input blur失焦时,触发父级onInputBlur
+- input blur失焦时,触发change事件通知父组件ToDoList去保存新内容

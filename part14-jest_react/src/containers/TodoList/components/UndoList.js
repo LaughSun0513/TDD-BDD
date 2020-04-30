@@ -2,7 +2,13 @@ import React, { Component } from "react";
 
 export default class UndoList extends Component {
     render() {
-        const { list, deleteItem } = this.props;
+        const {
+            list,
+            deleteItem,
+            changeStatus,
+            onInputBlur,
+            onInputBlurToSave
+        } = this.props;
         return (
             <div className="undolist-box">
                 <div className="undolist-title">
@@ -15,13 +21,26 @@ export default class UndoList extends Component {
                                 return (
                                     <li key={index}
                                         data-test="item"
-                                        className="item">
-                                        {newItem}
-
+                                        className="item"
+                                        onClick={() => changeStatus(index)}
+                                    >
+                                        {
+                                            newItem.status === 'div' ? newItem.value
+                                                :
+                                                <input
+                                                    data-test="input"
+                                                    value={newItem.value}
+                                                    onBlur={() => onInputBlur(index)}
+                                                    onChange={(e) => onInputBlurToSave(index,e.target.value)}
+                                                />
+                                        }
                                         <span
                                             className="deleteBtn"
                                             data-test="deleteBtn"
-                                            onClick={() => deleteItem(index)}>-</span>
+                                            onClick={(e) => { 
+                                                e.stopPropagation();
+                                                deleteItem(index)
+                                            }}>-</span>
                                     </li>
                                 )
                         })
