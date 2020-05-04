@@ -26,7 +26,7 @@ export default class Header extends Component {
                     TodoList
                     <input
                         className="header-input"
-                        data-test="input"
+                        data-test="header-input"
                         placeholder = "请输入待办事项"
                         value={value}
                         onChange={this.handleInputChange.bind(this)}

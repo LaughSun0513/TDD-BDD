@@ -9,6 +9,7 @@ export default class UndoList extends Component {
             onInputBlur,
             onInputBlurToSave
         } = this.props;
+
         return (
             <div className="undolist-box">
                 <div className="undolist-title">

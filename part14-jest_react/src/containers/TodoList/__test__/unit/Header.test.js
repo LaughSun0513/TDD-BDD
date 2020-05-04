@@ -5,15 +5,15 @@ import {findWrapper} from '../../../../utils/testUtils';
 
 describe('Header 组件测试', () => { 
   it('初始化Header,包含input框', () => {
-    const wrapper = shallow(<Header/>);
-    const inputEle = findWrapper(wrapper, 'input');
+    const wrapper = shallow(<Header value=""/>);
+    const inputEle = findWrapper(wrapper, 'header-input');
 
     expect(inputEle).toExist();
   });
 
   it('input框初始值为空', () => {
     const wrapper = shallow(<Header />);
-    const inputEle = findWrapper(wrapper, 'input');
+    const inputEle = findWrapper(wrapper, 'header-input');
     const inputValue = inputEle.prop('value');
 
     expect(inputValue).toBe('');
@@ -21,7 +21,7 @@ describe('Header 组件测试', () => {
 
   it('input框值发生变化,用户输入时,数据跟着变', () => {
     const wrapper = shallow(<Header />);
-    const inputEle = findWrapper(wrapper, 'input');
+    const inputEle = findWrapper(wrapper, 'header-input');
     const userInputMsg = 'inputMsg';
 
     inputEle.simulate('change', {
@@ -34,14 +34,14 @@ describe('Header 组件测试', () => {
     expect(wrapper.state('value')).toEqual(userInputMsg);
 
     // 对新的DOM测试 -- 适合集成测试
-    // const newInputEle = wrapper.find('[data-test="input"]');
+    // const newInputEle = wrapper.find('[data-test="header-input"]');
     // expect(newInputEle.prop('value')).toEqual(userInputMsg);
   });
 
   it('input框输入回车，无内容时没反应', () => {
     const keyUpEvents = jest.fn();
     const wrapper = shallow(<Header addUndoItem={keyUpEvents}/>);
-    const inputEle = findWrapper(wrapper, 'input');
+    const inputEle = findWrapper(wrapper, 'header-input');
     wrapper.setState({
       value: ''
     });
@@ -56,7 +56,7 @@ describe('Header 组件测试', () => {
   it('input框输入回车，有内容时,向外触发事件，清空inputValue', () => {
     const keyUpEvents = jest.fn();
     const wrapper = shallow(<Header addUndoItem={keyUpEvents}/>);
-    const inputEle = findWrapper(wrapper, 'input');
+    const inputEle = findWrapper(wrapper, 'header-input');
     const userInputMsg = 'Yux';
 
     wrapper.setState({
@@ -70,7 +70,7 @@ describe('Header 组件测试', () => {
     expect(keyUpEvents).toHaveBeenCalled();
     expect(keyUpEvents).toHaveBeenLastCalledWith(userInputMsg);
     
-    const newInputEle = findWrapper(wrapper, 'input');
+    const newInputEle = findWrapper(wrapper, 'header-input');
     expect(newInputEle.prop('value')).toBe('');
   });
 

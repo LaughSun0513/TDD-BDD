@@ -15,7 +15,8 @@ describe('TodoList 组件测试', () => {
         const Header = wrapper.find('Header');
         
         const HeaderAddUndoItem = Header.prop('addUndoItem');
-        expect(HeaderAddUndoItem).toBeTruthy();
+        const TodoListAddUndoItem = wrapper.instance().addUndoItem;
+        expect(HeaderAddUndoItem).toEqual(TodoListAddUndoItem);
     });
 
     it('监听到Header组件的add操作时,新增一项', () => {
