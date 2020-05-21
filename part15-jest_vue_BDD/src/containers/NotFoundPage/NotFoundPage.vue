@@ -1,12 +1,12 @@
 <template>
-	<div id="app">
-		<router-view />
+	<div id="not-found">
+		404:Not Found
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'App'
+	name: '404'
 };
 </script>
 
@@ -17,5 +17,10 @@ export default {
 }
 body {
 	background #CDCDCD;
+}
+#not-found {
+	text-align center
+	vertical-align middle
+	color red
 }
 </style>
