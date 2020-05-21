@@ -493,3 +493,93 @@ All files            |      100 |      100 |      100 |      100 |              
 - 当状态是input,展示input,并且input框里显示的值是当前的值
 - input blur失焦时,触发父级onInputBlur
 - input blur失焦时,触发change事件通知父组件ToDoList去保存新内容
+
+### 测试覆盖率
+  ```js
+    "cov": "node scripts/test.js --coverage --watchAll=false"
+
+    // npm run cov
+  ```
+### jest-react 总结
+- TDD 
+  - 代码质量高
+- 单元测试 
+  - 测试覆盖率高 代码量大 业务耦合度高 过于独立
+
+## BDD -- Behavior Driven Development 行为驱动开发
+### VUE
+- mount挂载 深层挂载
+- 行为驱动 集成测试
+
+```js
+it(` 1.用户会在Header输入框输入内容 
+       2.用户回车 
+       3.列表项新增一项内容
+    `, () => { 
+      const wrapper = mount(TodoList, {
+        store
+      });
+      const inputEle = findWrapper(wrapper, 'header-input').at(0);
+      const msg = 'Yux'
+      inputEle.setValue(msg);
+      inputEle.trigger('change')
+      inputEle.trigger('keyup.enter');
+      
+      const listItems = findWrapper(wrapper, 'list-item');
+      
+      expect(listItems.length).toBe(1);
+      expect(listItems.contains(msg)).toBe(true);
+  })
+```
+#### VUEX
+ - npm i install vuex --save
+ ```js
+ // store.js
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
+	state: {
+		inputValue: ''
+	},
+	mutations: {
+		changeInputValue(state, payload) {
+			state.inputValue = payload;
+		}
+	}
+});
+
+export default store;
+```
+```js
+import Vue from 'vue';
+import store from './store';
+
+new Vue({
+	render: h => h(App),
+	store
+}).$mount('#app');
+```
+```js
+// Header.vue
+import { mapState, mapMutations } from 'vuex';
+export default {
+	name: 'Header',
+	computed: {
+		...mapState({
+			inputValue: state => state.inputValue
+		})
+	},
+	methods: {
+		addTodoItem() {
+			if (this.inputValue) {
+				this.$emit('add', this.inputValue);
+				this.changeInputValue('');
+			}
+		},
+		...mapMutations(['changeInputValue'])
+	}
+};
+```
