@@ -316,3 +316,50 @@ it(`
         });
     })
 ```
+### react-router-dom
+- npm i react-router-dom --save
+- 添加 NotFoundPage 404页面
+```js
+// App.js
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={TodoList} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
+```
+
+#### 目录结构的规整
+- 可以按照页面级别放置
+    - tree -I "node_modules" -L 2
+    ```txt
+    containers
+        │   ├── NotFoundPage
+        │   │   └── index.js
+        │   └── TodoList
+        │       ├── TodoList.js
+        │       ├── __mocks__
+        │       ├── __test__
+        │       ├── components
+        │       ├── index.css
+        │       └── store  
+    ```
+- 也可以将components放置在外层
+    ```txt
+    components
+    containers
+        │   ├── NotFoundPage
+        │   │   └── index.js
+        │   └── TodoList
+        │       ├── TodoList.js
+        │       ├── __mocks__
+        │       ├── __test__
+        │       ├── index.css
+        │       └── store  
+    ```
